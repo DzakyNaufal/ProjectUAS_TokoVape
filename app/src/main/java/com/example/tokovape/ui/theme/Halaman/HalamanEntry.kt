@@ -36,3 +36,51 @@ object DestinasiEntry: DestinasiNavigasi {
     override val route = "item_entry"
     override val titleRes = R.string.entry_produk
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun FormInputToko(
+    detailToko: DetailToko,
+    modifier: Modifier = Modifier,
+    onValueChange: (DetailToko)-> Unit ={},
+    enabled: Boolean = true
+){
+    Column (
+        modifier = modifier,
+        verticalArrangement =  Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
+    ){
+        OutlinedTextField(
+            value = detailToko.nama,
+            onValueChange ={onValueChange(detailToko.copy(nama=it)) },
+            label = { Text(stringResource(R.string.nama)) },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true
+        )
+        OutlinedTextField(
+            value = detailToko.harga,
+            onValueChange ={onValueChange(detailToko.copy(harga=it)) },
+            label = { Text(stringResource(R.string.harga)) },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true
+        )
+        OutlinedTextField(
+            value = detailToko.total,
+            onValueChange ={onValueChange(detailToko.copy(total=it)) },
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            label = { Text(stringResource(R.string.total)) },
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true
+        )
+
+        if(enabled){
+            Text(
+                text = stringResource(R.string.required_field),
+                modifier = Modifier.padding(start = dimensionResource(id = R.dimen.padding_medium))
+            )
+        }
+        Divider(
+            thickness = dimensionResource(R.dimen.padding_small),
+            modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_medium ))
+        )
+    }
+}
