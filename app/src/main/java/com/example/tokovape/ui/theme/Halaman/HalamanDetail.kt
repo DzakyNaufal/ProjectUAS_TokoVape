@@ -53,6 +53,51 @@ object DetailDestination : DestinasiNavigasi {
 
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DetailScreen(
+    navigateToEditItem: (Int) -> Unit,
+    navigateBack: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: DetailViewModel = viewModel(factory = PenyediaViewModel.Factory)
+) {
+    val uiState = viewModel.uiState.collectAsState()
+    val coroutineScope = rememberCoroutineScope()
+    Scaffold (
+        topBar = {
+            TokoTopAppBar(
+                title = stringResource(DetailDestination.titleRes),
+                canNavigateBack = true,
+                navigateUp = navigateBack
+            )
+        }, floatingActionButton = {
+            FloatingActionButton(
+                onClick = { navigateToEditItem(uiState.value.detailToko.id) },
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.padding(dimensionResource(R.dimen.padding_large))
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Edit,
+                    contentDescription = stringResource(R.string.edit_belanja),
+                )
+            }
+        }, modifier = modifier
+    ){innerPadding ->
+        itemDetailBody(
+            itemDetailUiState = uiState.value,
+            onDelete = {
+                coroutineScope.launch {
+                    viewModel.deleteItem()
+                    navigateBack()
+                }
+            },
+            modifier = Modifier
+                .padding(innerPadding)
+                .verticalScroll(rememberScrollState()),
+        )
+    }
+}
+
 @Composable
 private fun itemDetailBody(
     itemDetailUiState: ItemDetailsUIState,
