@@ -37,6 +37,34 @@ object DestinasiEntry: DestinasiNavigasi {
     override val titleRes = R.string.entry_produk
 }
 
+@Composable
+fun EntryTokoBody(
+    uiStateToko: UIStateToko,
+    onTokoValueChange: (DetailToko) -> Unit,
+    onSaveClick: () -> Unit,
+    modifier: Modifier = Modifier
+){
+    Column (
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_large)),
+        modifier = modifier.padding(dimensionResource(id = R.dimen.padding_medium))
+    ){
+        FormInputToko(
+            detailToko = uiStateToko.detailToko,
+            onValueChange = onTokoValueChange,
+            modifier = Modifier.fillMaxWidth()
+        )
+        Button(
+            onClick = onSaveClick,
+            enabled = uiStateToko.isEntryValid,
+            shape = MaterialTheme.shapes.small,
+            modifier = Modifier.fillMaxWidth()
+
+        ) {
+            Text(stringResource(id = R.string.btn_submit))
+        }
+    }
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FormInputToko(
