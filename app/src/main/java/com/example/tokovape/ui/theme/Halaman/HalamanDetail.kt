@@ -54,6 +54,47 @@ object DetailDestination : DestinasiNavigasi {
 }
 
 @Composable
+fun ItemDetails(
+    toko: Toko, modifier: Modifier = Modifier
+){
+    Card (
+        modifier = modifier, colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+        )
+    ){
+        Column (
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(dimensionResource(id = R.dimen.padding_medium)),
+            verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
+        ){
+            ItemDetailRow(
+                labelResID = R.string.nama,
+                itemDetail = toko.nama,
+                modifier = Modifier.padding(
+                    horizontal = dimensionResource(id = R.dimen.padding_medium)
+                )
+            )
+            ItemDetailRow(
+                labelResID = R.string.harga,
+                itemDetail = toko.harga,
+                modifier = Modifier.padding(
+                    horizontal = dimensionResource(id = R.dimen.padding_medium)
+                )
+            )
+            ItemDetailRow(
+                labelResID = R.string.total,
+                itemDetail = toko.total,
+                modifier = Modifier.padding(
+                    horizontal = dimensionResource(id = R.dimen.padding_medium)
+                )
+            )
+        }
+    }
+}
+
+@Composable
 private fun ItemDetailRow(
     @StringRes labelResID: Int, itemDetail: String, modifier: Modifier = Modifier
 ) {
