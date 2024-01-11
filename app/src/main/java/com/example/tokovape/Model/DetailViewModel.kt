@@ -26,7 +26,9 @@ class DetailViewModel(
                 started = SharingStarted.WhileSubscribed(TIME_MILLIS),
                 initialValue = ItemDetailsUIState()
             )
-    
+    suspend fun deleteItem(){
+        repositoryToko.deleteToko(uiState.value.detailToko.toToko())
+    }
     companion object{
         private const val TIME_MILLIS = 5_000L
     }
