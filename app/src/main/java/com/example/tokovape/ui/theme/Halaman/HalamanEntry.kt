@@ -37,6 +37,41 @@ object DestinasiEntry: DestinasiNavigasi {
     override val titleRes = R.string.entry_produk
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun EntryTokoScreen(
+    navigateBack: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: EntryViewModel = viewModel(factory = PenyediaViewModel.Factory)
+) {
+    val coroutineScope = rememberCoroutineScope()
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    Scaffold (
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            TokoTopAppBar(
+                title = stringResource(DestinasiEntry.titleRes),
+                canNavigateBack = true,
+                scrollBehavior = scrollBehavior
+            )
+        }) { innerPadding ->
+        EntryTokoBody(
+            uiStateToko = viewModel.uiStateToko,
+            onTokoValueChange = viewModel::updateUiState,
+            onSaveClick = {
+                coroutineScope.launch {
+                    viewModel.saveToko()
+                    navigateBack()
+                }
+            },
+            modifier = Modifier
+                .padding(innerPadding)
+                .verticalScroll(rememberScrollState())
+                .fillMaxWidth()
+        )
+    }
+}
+
 @Composable
 fun EntryTokoBody(
     uiStateToko: UIStateToko,
