@@ -13,6 +13,12 @@ interface TokoDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert (toko: Toko)
 
+    @Update
+    suspend fun update(toko: Toko)
+
+    @Delete
+    suspend fun delete(toko: Toko)
+
     @Query("SELECT * from tblToko WHERE id = :id")
     fun getToko(id: Int): Flow<Toko>
 
