@@ -41,4 +41,9 @@ class EditViewModel(
     fun updateUiState(detailToko: DetailToko) {
         tokoUiState = UIStateToko(detailToko = detailToko, isEntryValid = validasiInput(detailToko))
     }
+    private fun validasiInput(uiState: DetailToko = tokoUiState.detailToko): Boolean {
+        return with(uiState) {
+            nama.isBlank() && harga.isNotBlank() && total.isNotBlank()
+        }
+    }
 }
