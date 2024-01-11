@@ -54,6 +54,42 @@ object DetailDestination : DestinasiNavigasi {
 }
 
 @Composable
+private fun itemDetailBody(
+    itemDetailUiState: ItemDetailsUIState,
+    onDelete: () -> Unit,
+    modifier: Modifier = Modifier
+){
+    Column (
+        modifier = modifier.padding(dimensionResource(id = R.dimen.padding_medium)),
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
+    ){
+        var deleteConfirmationRequired by rememberSaveable { mutableStateOf(false) }
+        ItemDetails(
+            toko = itemDetailUiState.detailToko.toToko(),
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        OutlinedButton(
+            onClick = { deleteConfirmationRequired = true},
+            shape = MaterialTheme.shapes.small,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(stringResource(id = R.string.delete))
+        }
+        if (deleteConfirmationRequired) {
+            DeleteConfirmationDialog(
+                onDeleteConfirm = {
+                    deleteConfirmationRequired = false
+                    onDelete()
+                },
+                onDeleteCancel = { deleteConfirmationRequired = false },
+                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium))
+            )
+        }
+    }
+}
+
+@Composable
 fun ItemDetails(
     toko: Toko, modifier: Modifier = Modifier
 ){
