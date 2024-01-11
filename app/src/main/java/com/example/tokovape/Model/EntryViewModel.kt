@@ -34,3 +34,12 @@ class EntryViewModel(private val repositoriToko: RepositoriToko): ViewModel() {
         }
     }
 }
+
+/*
+* Mewakili status Ui untuk toko
+*/
+
+data class  UIStateToko(
+    val  detailToko: DetailToko = DetailToko(),
+    val  isEntryValid: Boolean = false
+)
