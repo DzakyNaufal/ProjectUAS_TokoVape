@@ -38,4 +38,7 @@ class EditViewModel(
             println("Data tidak valid")
         }
     }
+    fun updateUiState(detailToko: DetailToko) {
+        tokoUiState = UIStateToko(detailToko = detailToko, isEntryValid = validasiInput(detailToko))
+    }
 }
