@@ -43,3 +43,9 @@ data class  UIStateToko(
     val  detailToko: DetailToko = DetailToko(),
     val  isEntryValid: Boolean = false
 )
+data class  DetailToko(
+    val id : Int = 0,
+    val nama : String="",
+    val harga : String="",
+    val total : String="",
+)
