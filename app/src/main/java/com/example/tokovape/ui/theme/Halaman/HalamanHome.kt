@@ -46,6 +46,24 @@ object DestinasiHome : DestinasiNavigasi {
 }
 
 @Composable
+fun ListToko(
+    itemToko: List<Toko>,
+    modifier: Modifier = Modifier,
+    onItemClick: (Toko) -> Unit
+) {
+    LazyColumn(modifier = Modifier) {
+        items(items = itemToko, key = { it.id }) { person ->
+            DataToko(
+                toko = person,
+                modifier = Modifier
+                    .padding(dimensionResource(id = R.dimen.padding_small))
+                    .clickable { onItemClick(person) }
+            )
+        }
+    }
+}
+
+@Composable
 fun DataToko(
     toko: Toko, modifier: Modifier = Modifier
 ) {
