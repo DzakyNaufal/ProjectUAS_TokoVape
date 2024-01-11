@@ -1,3 +1,24 @@
 <resources>
-    <string name="app_name">TokoVape</string>
+    <string name="login">Selamat Datang</string>
+    <string name="app_name">TokoVAPE</string>
+    <string name="entry_produk">Tambah Liquid</string>
+    <string name="deskripsi_no_item">Tidak ada data Siswa</string>
+    <string name="nama">Nama Liquid</string>
+    <string name="harga">Harga</string>
+    <string name="total">Total Produk</string>
+    <string name="nama1">Nama Siswa : </string>
+    <string name="harga1">Harga : </string>
+    <string name="total1">Telpon Siswa : </string>
+    <string name="required_field">* required fields</string>
+    <string name="btn_submit">Submit</string>
+    <string name="detail_belanja">Detail Belanja</string>
+    <string name="edit_belanja">Edit Belanja</string>
+    <string name="back">Back</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="delete">Hapus Belanja</string>
+    <string name="Update">Edit</string>
+    <string name="attention">Perhatian</string>
+    <string name="tanya">Apakah anda yakin menghapus ini ? </string>
+    <string name="next">Masuk</string>
 </resources>
