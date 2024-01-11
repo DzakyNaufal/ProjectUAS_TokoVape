@@ -25,4 +25,7 @@ class HomeViewModel(private val RepositoriToko: RepositoriToko): ViewModel() {
             started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
             initialValue = HomeUiState()
         )
+    data class HomeUiState(
+        val listToko: List<Toko> = listOf()
+    )
 }
