@@ -60,3 +60,9 @@ fun Toko.toUiStateToko(isEntryValid: Boolean = false): UIStateToko = UIStateToko
     detailToko = this.toDetailToko(),
     isEntryValid = isEntryValid
 )
+fun  Toko.toDetailToko(): DetailToko = DetailToko(
+    id = id,
+    nama = nama,
+    harga = harga,
+    total = total
+)
