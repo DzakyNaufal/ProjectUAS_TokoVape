@@ -60,3 +60,62 @@ fun TokoTopAppBar(
     )
 }
 
+@Composable
+fun HostNavigasi(
+    navController: NavHostController,
+    modifier: Modifier = Modifier
+){
+    NavHost(
+        navController=navController,
+        startDestination = DestinasiLogin.route,
+        modifier = Modifier )
+    {
+
+        composable(route = DestinasiLogin.route) {
+            HalamanLogin (
+                onNextButtonClicked = {
+                    navController.navigate(DestinasiHome.route)
+                }
+            )
+        }
+
+        composable(DestinasiHome.route){
+            HomeScreen(
+                navigateToItemEntry = { navController.navigate(DestinasiEntry.route) },
+                onDetailClick = {
+                    navController.navigate("${DetailDestination.route}/$it")
+                }
+            )
+        }
+        composable(DestinasiEntry.route){
+            EntryTokoScreen(navigateBack = { navController.popBackStack()})
+        }
+
+        composable(
+            DetailDestination.routeWithArgs,
+            arguments = listOf(navArgument(DetailDestination.tokoIdArg) {
+                type = NavType.IntType
+            })
+        ){
+            DetailScreen(
+                navigateToEditItem = {
+                    navController.navigate("${ItemEditDestination.route}/$it")
+                },
+                navigateBack = { navController.popBackStack() }
+            )
+        }
+
+        composable(
+            ItemEditDestination.routeWithArgs,
+            arguments = listOf(navArgument(ItemEditDestination.itemIdArg) {
+                type = NavType.IntType
+            })
+        ) {
+            ItemEditScreen(
+                navigateBack = { navController.popBackStack() },
+                onNavigateUp = { navController.navigateUp() }
+            )
+        }
+    }
+}
+
