@@ -7,4 +7,8 @@ interface ContainerApp{
     val repositoriToko : RepositoriToko
 }
 
-
+class ContainerDataApp(private val context: Context): ContainerApp{
+    override val repositoriToko: RepositoriToko by lazy {
+        OfflineRepositoriToko(DatabaseToko.getDatabase(context).TokoDao())
+    }
+}
