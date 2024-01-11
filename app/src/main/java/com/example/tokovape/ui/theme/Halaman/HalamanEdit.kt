@@ -22,3 +22,37 @@ object ItemEditDestination : DestinasiNavigasi {
     val routeWithArgs = "$route/{$itemIdArg}"
 
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ItemEditScreen(
+    navigateBack: () -> Unit,
+    onNavigateUp: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: EditViewModel = viewModel(factory = PenyediaViewModel.Factory)
+
+){
+    val coroutineScope = rememberCoroutineScope()
+    Scaffold(
+        topBar = {
+            TokoTopAppBar(
+                title = stringResource(ItemEditDestination.titleRes),
+                canNavigateBack = true,
+                navigateUp = onNavigateUp
+            )
+        },
+        modifier = modifier
+    ) { innerPadding ->
+        EntryTokoBody(
+            uiStateToko = viewModel.tokoUiState,
+            onTokoValueChange = viewModel::updateUiState,
+            onSaveClick = {
+                coroutineScope.launch{
+                    viewModel.updateToko()
+                    navigateBack()
+                }
+            },
+            modifier = Modifier.padding(innerPadding)
+        )
+    }
+}
