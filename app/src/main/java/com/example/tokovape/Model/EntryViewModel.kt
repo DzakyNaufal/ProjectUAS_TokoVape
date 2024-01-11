@@ -49,3 +49,10 @@ data class  DetailToko(
     val harga : String="",
     val total : String="",
 )
+/* Fungsi untuk mengkonversi data input ke data dalam tabel sesuai jenis daanya */
+fun DetailToko.toToko(): Toko = Toko(
+    id = id,
+    nama = nama,
+    harga = harga,
+    total = total
+)
