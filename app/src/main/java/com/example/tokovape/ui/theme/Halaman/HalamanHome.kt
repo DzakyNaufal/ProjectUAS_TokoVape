@@ -46,6 +46,28 @@ object DestinasiHome : DestinasiNavigasi {
 }
 
 @Composable
+fun BodyHome(
+    modifier: Modifier,
+    itemToko: List<Toko>,
+    onTokoClick: (Int) -> Unit = {}
+) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = modifier) {
+        if (itemToko.isEmpty()) {
+            Text(
+                text = stringResource(R.string.deskripsi_no_item),
+                textAlign = TextAlign.Center, style = MaterialTheme.typography.titleLarge
+            )
+        } else {
+            ListToko(
+                itemToko = itemToko,
+                modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_small)),
+                onItemClick = { onTokoClick(it.id) }
+            )
+        }
+    }
+}
+
+@Composable
 fun ListToko(
     itemToko: List<Toko>,
     modifier: Modifier = Modifier,
