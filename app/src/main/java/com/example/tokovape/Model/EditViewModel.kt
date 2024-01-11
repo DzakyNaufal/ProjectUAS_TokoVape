@@ -30,4 +30,12 @@ class EditViewModel(
                 .toUiStateToko(true)
         }
     }
+    suspend fun updateToko() {
+        if (validasiInput(tokoUiState.detailToko)) {
+            repositoriToko.updateToko(tokoUiState.detailToko.toToko())
+        }
+        else {
+            println("Data tidak valid")
+        }
+    }
 }
