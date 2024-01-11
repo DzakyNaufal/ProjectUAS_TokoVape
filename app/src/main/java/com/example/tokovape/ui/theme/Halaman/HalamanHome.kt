@@ -45,6 +45,46 @@ object DestinasiHome : DestinasiNavigasi {
     override val titleRes = R.string.app_name
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun HomeScreen(
+    navigateToItemEntry: () -> Unit,
+    modifier: Modifier = Modifier,
+    onDetailClick: (Int) -> Unit = {},
+    viewModel: HomeViewModel = viewModel(factory = PenyediaViewModel.Factory)
+) {
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    Scaffold(
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection), topBar = {
+            TokoTopAppBar(
+                title = stringResource(id = DestinasiHome.titleRes),
+                canNavigateBack = false,
+                scrollBehavior = scrollBehavior
+            )
+        }, floatingActionButton = {
+            FloatingActionButton(
+                onClick = navigateToItemEntry,
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large))
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = stringResource(id = R.string.entry_produk)
+                )
+            }
+        }
+    ) { innerPadding ->
+        val uiStateToko by viewModel.homeUiState.collectAsState()
+        BodyHome(
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize(),
+            itemToko = uiStateToko.listToko,
+            onTokoClick = onDetailClick
+        )
+    }
+}
+
 @Composable
 fun BodyHome(
     modifier: Modifier,
