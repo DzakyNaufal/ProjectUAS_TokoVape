@@ -37,4 +37,63 @@ object DestinasiLogin : DestinasiNavigasi {
     override val titleRes = R.string.login
 }
 
+@Composable
+fun HalamanLogin (
+    onNextButtonClicked: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val image = painterResource(id = R.drawable.logo1)
+    Column(
+        modifier = Modifier,
+        verticalArrangement = Arrangement.SpaceAround
+    ) {
+        OutlinedCard(
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surface
+            ),
+            border = BorderStroke(5.dp, Color.Black), modifier = Modifier
+                .fillMaxWidth(0.95f)
+                .padding(vertical = 50.dp)
+                .align(Alignment.CenterHorizontally)
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+            ) {
+                Image(
+                    modifier = Modifier.size(width = 250.dp, height = 270.dp),
+                    painter = image,
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop
+                )
+
+                Text(
+                    text = "TokoVape",
+                    color = Color.DarkGray,
+                    fontFamily = FontFamily.Serif,
+                    fontStyle = FontStyle.Italic,
+                    fontSize = 60.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(dimensionResource(R.dimen.padding_medium))
+                .weight(1f, false),
+            horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small)),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Button(
+                modifier = Modifier.weight(1f),
+                onClick = onNextButtonClicked
+            ) {
+                Text(stringResource(R.string.next))
+            }
+        }
+    }
+}
+
 
