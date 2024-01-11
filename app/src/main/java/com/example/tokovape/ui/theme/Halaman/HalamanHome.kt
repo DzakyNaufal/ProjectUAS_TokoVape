@@ -44,3 +44,39 @@ object DestinasiHome : DestinasiNavigasi {
     override val route = "home"
     override val titleRes = R.string.app_name
 }
+
+@Composable
+fun DataToko(
+    toko: Toko, modifier: Modifier = Modifier
+) {
+    Card(
+        modifier = modifier, elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+    ) {
+        Column(
+            modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large)),
+            verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_small))
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = toko.nama,
+                    style = MaterialTheme.typography.titleLarge,
+                )
+                Spacer(Modifier.weight(1f))
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = null
+                )
+                Text(
+                    text = toko.harga,
+                    style = MaterialTheme.typography.titleMedium
+                )
+            }
+            Text(
+                text = toko.total,
+                style = MaterialTheme.typography.titleMedium
+            )
+        }
+    }
+}
