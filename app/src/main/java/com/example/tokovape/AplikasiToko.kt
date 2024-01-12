@@ -4,7 +4,7 @@ import android.app.Application
 import com.example.tokovape.Repository.ContainerApp
 import com.example.tokovape.Repository.ContainerDataApp
 
-class AplikasiToko : Application() {
+class AplikasiToko() : Application() {
     /**
      * App Container instance digunakan oleh kelas-kelas lainnya untuk mendapatkan dependensi
      */

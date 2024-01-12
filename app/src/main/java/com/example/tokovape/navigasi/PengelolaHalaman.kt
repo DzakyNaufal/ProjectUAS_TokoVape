@@ -11,7 +11,6 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -29,11 +28,6 @@ import com.example.tokovape.ui.theme.Halaman.HalamanLogin
 import com.example.tokovape.ui.theme.Halaman.HomeScreen
 import com.example.tokovape.ui.theme.Halaman.ItemEditDestination
 import com.example.tokovape.ui.theme.Halaman.ItemEditScreen
-
-@Composable
-fun TokoApp(navController: NavHostController= rememberNavController()){
-    HostNavigasi(navController = navController)
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -62,33 +56,32 @@ fun TokoTopAppBar(
 
 @Composable
 fun HostNavigasi(
-    navController: NavHostController,
+    navController: NavHostController= rememberNavController(),
     modifier: Modifier = Modifier
-){
+) {
     NavHost(
-        navController=navController,
+        navController = navController,
         startDestination = DestinasiLogin.route,
-        modifier = Modifier )
-    {
+        modifier = Modifier
+    ) {
 
-        composable(route = DestinasiLogin.route) {
-            HalamanLogin (
+        composable(DestinasiLogin.route) {
+            HalamanLogin(
                 onNextButtonClicked = {
                     navController.navigate(DestinasiHome.route)
                 }
             )
         }
-
-        composable(DestinasiHome.route){
+        composable(DestinasiHome.route) {
             HomeScreen(
                 navigateToItemEntry = { navController.navigate(DestinasiEntry.route) },
-                onDetailClick = {
-                    navController.navigate("${DetailDestination.route}/$it")
-                }
+                onDetailClick = { itemId ->
+                    navController.navigate("${DetailDestination.route}/$itemId")
+                },
             )
         }
-        composable(DestinasiEntry.route){
-            EntryTokoScreen(navigateBack = { navController.popBackStack()})
+        composable(DestinasiEntry.route) {
+            EntryTokoScreen(navigateBack = { navController.popBackStack() })
         }
 
         composable(
@@ -96,14 +89,16 @@ fun HostNavigasi(
             arguments = listOf(navArgument(DetailDestination.tokoIdArg) {
                 type = NavType.IntType
             })
-        ){
-            DetailScreen(
-                navigateToEditItem = {
-                    navController.navigate("${ItemEditDestination.route}/$it")
-                },
-                navigateBack = { navController.popBackStack() }
-            )
+        ) { backStackEntry ->
+            val itemId = backStackEntry.arguments?.getInt(DetailDestination.tokoIdArg)
+            itemId?.let {
+                DetailScreen(
+                    navigateBack = { navController.popBackStack() },
+                    navigateToEditItem = { navController.navigate("${ItemEditDestination.route}/$it") }
+                )
+            }
         }
+
 
         composable(
             ItemEditDestination.routeWithArgs,
@@ -111,11 +106,8 @@ fun HostNavigasi(
                 type = NavType.IntType
             })
         ) {
-            ItemEditScreen(
-                navigateBack = { navController.popBackStack() },
-                onNavigateUp = { navController.navigateUp() }
-            )
+            ItemEditScreen(navigateBack = { navController.popBackStack() },
+                onNavigateUp = { navController.navigateUp() })
         }
     }
 }
-

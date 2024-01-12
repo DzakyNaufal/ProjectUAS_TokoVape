@@ -149,12 +149,12 @@ fun DataToko(
                     contentDescription = null
                 )
                 Text(
-                    text = toko.harga,
+                    text = toko.total,
                     style = MaterialTheme.typography.titleMedium
                 )
             }
             Text(
-                text = toko.total,
+                text = toko.harga,
                 style = MaterialTheme.typography.titleMedium
             )
         }
